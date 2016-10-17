@@ -5,7 +5,7 @@ require 'json'
 require_relative './models/wordformatter'
 
 #----- Route for welcome page http://localhost:4567/
-get("/") do
+get "/" do
   erb(:welcome)
 end
 #----- Route for address page http://localhost:4567/address
@@ -20,4 +20,11 @@ get '/address' do
               phone:    '0131558030'
             }
   return address.to_json
+end
+
+#----- Route for camel case page http://localhost:4567/camelcase
+get '/camelcase/:string' do
+  content_type(:json)
+  phrase = WordFormatter.new(params[:string])
+  return phrase.camel_case.to_json
 end
